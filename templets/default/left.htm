@@ -1,0 +1,12 @@
+<div id="left_diy" class="mt1">
+  <div class="left_top">{dede:field name='typeid' function="GetTopTypename(@me)/}</div>
+  <div class="left_menu">
+    <ul>
+      {dede:channel  type='son' currentstyle="
+      <li><a href='~typelink~' class='thisclass2'>+ ~typename~</a></li>
+      "}
+      <li><a href='[field:typeurl/]'>+ [field:typename/]</a></li>
+      {/dede:channel}
+    </ul>
+  </div>
+</div>

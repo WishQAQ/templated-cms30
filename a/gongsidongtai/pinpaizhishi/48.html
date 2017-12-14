@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>得品牌者得市场（龍的品牌设计机构）_大气品牌传播广告设计类企业公司织梦模板</title>
+<meta name="keywords" content="得,品牌,者得,市场,龍,的,设计机构,企业发展," />
+<meta name="description" content="企业发展过程中遇到的问题 1、您的产品能吸引新一代消费者吗? 您的品牌是否正在遭遇前所未有的压力？通路效率低下、销量下滑、市场占有率下降？ 这一切意味着您的企业品牌可能" />
+<link href="/templets/default/css/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="/include/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function CheckLogin(){
+	  var taget_obj = document.getElementById('_ajax_feedback');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("/member/ajax_feedback.php");
+	  DedeXHTTP = null;
+}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+-->
+</script>
+</head>
+<body class="articleview">
+<script type="text/javascript" src="/templets/default/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#focus").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#focus ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+	
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#focus").append(btn);
+	$("#focus .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#focus .btn span").css("opacity",0.4).mouseenter(function() {
+		index = $("#focus .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseenter");
+
+	//上一页、下一页按钮透明度处理
+	$("#focus .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},600);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},600);
+	});
+
+	//上一页按钮
+	$("#focus .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#focus .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#focus ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#focus").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#focus ul").stop(true,false).animate({"left":nowLeft},600); //通过animate()调整ul元素滚动到计算出的position
+		//$("#focus .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#focus .btn span").stop(true,false).animate({"opacity":"0.4"},600).eq(index).stop(true,false).animate({"opacity":"1"},600); //为当前的按钮切换到选中的效果
+	}
+});
+
+</script>
+
+<div class="w980 center clr">
+  <div class="header">
+    <div class="logo_l">
+      <div class="logo"><a href="/"><img src="/templets/default/images/logo.png" alt="大气品牌传播广告设计类企业公司织梦模板" style="margin-top:20px;"/></a></div>
+      <div class="logo_otherbt"> <a href="http://weibo.com/"><img src="/templets/default/images/logobt_01.gif" /></a> <a href="/a/zhaopingangwei/"><img src="/templets/default/images/logobt_02.gif" /></a> <a href="/a/gongsidongtai/"><img src="/templets/default/images/logobt_03.gif" /></a> </div>
+    </div>
+    <div class="logo_r">
+      <div class="top_tel"><img src="/templets/default/images/top_tel.gif" /></div>
+      <div class="menu_bg clr">
+        <div id="navMenu">
+          <ul>
+            <li><a href='/'>首 页</a></li>
+            
+            <li><a href='/a/gongsizuopin/'  rel='dropmenu7'>公司作品</a></li>
+            
+            <li><a href='/a/gongsifuwu/'  rel='dropmenu15'>公司服务</a></li>
+            <li class='hover'><a href='/a/gongsidongtai/'  rel='dropmenu21'>公司动态</a></li>
+            <li><a href='/a/zhaopingangwei/' >招聘岗位</a></li>
+            
+            <li><a href='/a/lianxiwomen/' >联系我们</a></li>
+            
+          </ul>
+        </div>
+        <script type='text/javascript' src='/templets/default/js/dropdown.js'></script> 
+        <ul id="dropmenu7" class="dropMenu">
+          
+          <li><a href="/a/gongsizuopin/pinpaishibieVI/">品牌识别VI</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaibiaozhi/">品牌标志</a></li>
+          
+          <li><a href="/a/gongsizuopin/chanpinbaozhuang/">产品包装</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaihuace/">品牌画册</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaiwangzhan/">品牌网站</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaizhanlan/">品牌展览</a></li>
+          
+          <li><a href="/a/gongsizuopin/sheyingzuopin/">摄影作品</a></li>
+          
+        </ul><ul id="dropmenu15" class="dropMenu">
+          
+          <li><a href="/a/gongsifuwu/fuwulingyu/">服务领域</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuduixiang/">服务对象</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuliucheng/">服务流程</a></li>
+          
+          <li><a href="/a/gongsifuwu/hezuofangshi/">合作方式</a></li>
+          
+        </ul><ul id="dropmenu21" class="dropMenu">
+          
+          <li><a href="/a/gongsidongtai/gongsixinwen/">公司新闻</a></li>
+          
+          <li><a href="/a/gongsidongtai/shejizhishi/">设计知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizhishi/">品牌知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizixun/">品牌资讯</a></li>
+          
+        </ul><ul id="dropmenu29" class="dropMenu">
+          
+        </ul><ul id="dropmenu27" class="dropMenu">
+          
+        </ul> 
+        <script type="text/javascript">cssdropdown.startchrome("navMenu")</script> 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w980 center clear clr">
+  <div class="i_banner">
+    <div class="wrapper">
+      <div id="focus">
+        <ul>
+          <li><img src='/uploads/allimg/150911/1-1509111221150-L.jpg' border='0' width='1000' height='341' alt='幻灯11'></li>
+<li><img src='/uploads/allimg/150911/1-1509111221040-L.jpg' border='0' width='1000' height='341' alt='幻灯10'></li>
+<li><img src='/uploads/allimg/150911/1-1509111220540-L.jpg' border='0' width='1000' height='341' alt='幻灯9'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103130-L.jpg' border='0' width='1000' height='341' alt='幻灯8'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103050-L.jpg' border='0' width='1000' height='341' alt='幻灯7'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102550-L.jpg' border='0' width='1000' height='341' alt='幻灯6'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102470-L.jpg' border='0' width='1000' height='341' alt='幻灯5'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102350-L.jpg' border='0' width='1000' height='341' alt='幻灯4'></li>
+<li><img src='/uploads/150731/1-150I1110223318.jpg' border='0' width='1000' height='341' alt='幻灯3'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102050-L.jpg' border='0' width='1000' height='341' alt='幻灯2'></li>
+
+        </ul>
+      </div>
+    </div>
+    <!-- wrapper end --> 
+  </div>
+</div>
+ 
+<!-- /header -->
+<div class="w980 center clear clr mt1"> <div id="left_diy" class="mt1">
+  <div class="left_top">公司动态</div>
+  <div class="left_menu">
+    <ul>
+      
+      <li><a href='/a/gongsidongtai/gongsixinwen/'>+ 公司新闻</a></li>
+      
+      <li><a href='/a/gongsidongtai/shejizhishi/'>+ 设计知识</a></li>
+      <li><a href='/a/gongsidongtai/pinpaizhishi/' class='thisclass2'>+ 品牌知识</a></li>
+      <li><a href='/a/gongsidongtai/pinpaizixun/'>+ 品牌资讯</a></li>
+      
+    </ul>
+  </div>
+</div>
+ 
+  
+  <!-- /页面右边 -->
+  <div id="right_diy">
+    <div class="right_nav">您当前的位置:<a href='http://localhost/'>主页</a> > <a href='/a/gongsidongtai/'>公司动态</a> > <a href='/a/gongsidongtai/pinpaizhishi/'>品牌知识</a> > </div>
+    <div class="right_body clear clr">
+      <div class="viewbox">
+        <div class="title">
+          <h2>得品牌者得市场（龍的品牌设计机构）</h2>
+        </div>
+        <!-- /title -->
+        <div class="info"> <small>发布于:</small>2015-07-31<small>来源:</small>未知 <small>作者:</small>admin<small>点击:</small> 
+          <script src="/plus/count.php?view=yes&aid=48&mid=1" type='text/javascript' language="javascript"></script> 
+          次</div>
+        <!-- /info -->
+        <div class="content"> <br style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;"><img alt="" src="/uploads/allimg/150731/1-150I1121231941.jpg" style="padding: 0px; margin: 0px; border: none; width: 650px; height: 117px;" /><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 20px;"><span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-family: arial, helvetica, sans-serif;"><strong style="padding: 0px; margin: 0px;">企业发展过程中遇到的问题</strong></span></span><br style="padding: 0px; margin: 0px;" />
+&nbsp;</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">1、您的产品能吸引新一代消费者吗?</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">您的品牌是否正在遭遇前所未有的压力？通路效率低下、销量下滑、市场占有率下降？<br style="padding: 0px; margin: 0px;" />
+这一切意味着您的企业品牌可能正在老化甚至走向死亡！</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">2、怎么样突破市场分配创建新的品牌</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">您希望在细分市场获取商业机会？您希望占有更大的市场份额？您希望创建多个品牌来适应不同趋向的消费者？</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">3、重新定位品牌，重新包装品牌，更好的面对市场</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">越来越多的企业正在计划或已经进入全国市场，但对于地域性较强的企业来说，最困难的是如何在其它地域让消费者对您企业品牌的理解和认同。</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">4、面对繁华多变的市场，如何让您的产品脱颖而出</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">终端的竞争已经越来越激烈，您不仅会有跟随者与模仿者，更有不断涌现的创新者与颠覆者！您必须明晰您的品牌定位，并付之于切实的战略行动，才能确保品牌在不同渠道、不同受众和不同产品类别方面的成功。</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">5、如何让您的品牌在线上吸引更多消费者</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">如今的网购平台给消费者提供极大便利，并在改变人们的消费方式。</span><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">经常说的品牌究竟是什么东西？</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">品牌一词来源于古挪威文字brandt，它的中文意思是&ldquo;烙印&rdquo;。<br style="padding: 0px; margin: 0px;" />
+在当时，西方游牧部落在马背上打上烙印，用此区分不同部落之间的财产，上面写着一句话：不许动，它是我的。&rdquo;并附有各部落的标记。<br style="padding: 0px; margin: 0px;" />
+这应该是最初的品牌标志和口号。由此我们可以推断最初品牌的含义，首先是区分产品，其次是通过特定的标识在别人心中留下烙印。<br style="padding: 0px; margin: 0px;" />
+&nbsp;</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">那到底品牌是什么呢？</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">品牌是一种口碑，品牌是一种无形资产。<br style="padding: 0px; margin: 0px;" />
+品牌是产品、品牌属性、包装、价格、历史声誉、广告方式的无形总和，品牌同时也因消费者对产品使用的印象，以及自身的经验而有所界定。&rdquo;<br style="padding: 0px; margin: 0px;" />
+对于品牌自身而言，品牌是一种契约。不过这种契约不是写在纸上的，而是存在于消费者的心中，这就是口碑。<br style="padding: 0px; margin: 0px;" />
+品牌向天下人承诺：我是优秀的，我是值得信赖的，选择我就选择了放心。<br style="padding: 0px; margin: 0px;" />
+面对激烈的市场竞争，唯独品牌是获取市场最强武器。所以说，得品牌者得市场。<br style="padding: 0px; margin: 0px;" />
+&nbsp;</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">如何解决发展过程中遇到的问题？</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">1.了解自己企业当初的定位是什么？<br style="padding: 0px; margin: 0px;" />
+2.自己企业的承诺有没有实现？<br style="padding: 0px; margin: 0px;" />
+3.行业竞争者之间有何区别？<br style="padding: 0px; margin: 0px;" />
+4.您的企业管理是否存在漏洞？<br style="padding: 0px; margin: 0px;" />
+5.您的企业销售额在倒退？</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 20px;"><span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><strong style="padding: 0px; margin: 0px;">首先了解品牌的特征是什么？它有什么重要性？</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">营销专家为品牌作了一个有趣的实验：将A啤酒的空瓶力灌上百威啤酒，再在百威的空瓶里灌上A啤酒，然后摆在繁华的王府井大街，请过往的行人免费<br style="padding: 0px; margin: 0px;" />
+品尝。先请他们品尝用A啤酒瓶装的百威啤酒，大多数的人都说不好喝，味道不正宗，其中一个人当场吐了出来，抱怨说：&ldquo;这是什么味啊？真难喝。<br style="padding: 0px; margin: 0px;" />
+然后专家请他们品尝用百威啤酒装的A啤酒，结果清一色的都说：这个好喝，味道正。<br style="padding: 0px; margin: 0px;" />
+于是专家问他们喝过百威没有，都说喝过，其中一个还说中午刚喝一瓶，就是这个味。这真令人哭笑不得。接下来，专家将瓶子上的标签撕去，再让人品尝，这时品尝着表现得无所适从，一会说这个好喝，一会又说那个好喝。</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">品牌的特征主要表现为三个方面</strong></span><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 16px;">品牌知名度</span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">如何喝酒就想起茅台、五粮液；抽烟就想起红塔山、555品牌，被想起的的难易程度不一，就决定了品牌知名度的层次关系。<br style="padding: 0px; margin: 0px;" />
+以香烟为例，消费者抽烟又层次之分，首先想起的可能会是红塔山、555、中华，其次可能是云烟或是其他牌子的香烟。<br style="padding: 0px; margin: 0px;" />
+这样，品牌就有了高低之分：第一提及知名度、提示知名度、无知明度。</span><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 16px;">品牌美誉度</span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">海尔第一个做出抽屉式冰箱，心扉第一个做无氧冰箱，作为企业，你也要找自己的第一，不是谁超过谁第一，是要在空白地方，我先创造出一个第一，先占领这个地方为第一。其实营销学中的重要原理定位，就是找自己的第一。</span><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 16px;">品牌忠诚度</span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">对于陌生的事物，消费者不会轻易去冒险。消费者更愿意选择的是品牌产品，品牌产品能给消费者信心和保证。一场篮球赛，如果有乔丹出场，我们就会更愿意看，因为我们相信有乔丹的存在，就会使球赛更精彩。在这里乔丹就是品牌，就是信心和保证。</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">其次品牌可以展现个性和身份的象征</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">穿喜来登和穿雅戈尔，喝茅台和喝二锅头，开卡迪拉克的和开夏利的人肯定是不同一个等级和档次的。换句话说他们肯定不是同一类人，&ldquo;物以类聚、人以群分&rdquo;使用什么样的品牌，基本上就表示你是个什么样的人。同样是牛仔，穿万宝路牛仔，表示你是个有男子汉气概的男人，而穿李维斯牛仔，表示你是个自由，叛逆、有性格的人。</span><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<img alt="" src="/uploads/allimg/150731/1-150I1121222T9.jpg" style="padding: 0px; margin: 0px; border: none; width: 650px; height: 79px;" /><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">七匹狼、大红鹰、圣象、耐克</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">等品牌的经验告诉我们，品牌经营完全可以实现与生产的分离。<br style="padding: 0px; margin: 0px;" />
+耐克委托他人加工一双鞋子只需几十元，贴上耐克的标签立即身价倍增，而且大受欢迎。<br style="padding: 0px; margin: 0px;" />
+反过来，如果没有耐克的那一勾，几十元也许还无人问津。<br style="padding: 0px; margin: 0px;" />
+所以，未来市场的趋势是，无品牌的企业将成为强势品牌的贴牌加工厂，而强势品牌将成为贴牌加工厂的指挥中枢。</span><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">产品与产品之间的质量、材料、款式的确有差异</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">这种物理差异不肯能有10倍100倍，劳力士、雷达价值主要是品牌，而不是产品。<br style="padding: 0px; margin: 0px;" />
+五块钱的表戴的是时间，几百块钱的表戴的是款式，几万块钱的表戴的是品牌。<br style="padding: 0px; margin: 0px;" />
+品牌不仅仅意味着产品的优秀质量性能款式的全面优秀，心理消费才是真正的重点，同时品牌是身份的象征。<br style="padding: 0px; margin: 0px;" />
+&nbsp;</span><br style="padding: 0px; margin: 0px;" />
+&nbsp;<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 20px;"><strong style="padding: 0px; margin: 0px;">消费市场领先法则是什么？</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">首先请回答几个问题<br style="padding: 0px; margin: 0px;" />
+第一个登上月球的人是谁？&ldquo;阿姆斯特朗&rdquo;，那第二个呢？<br style="padding: 0px; margin: 0px;" />
+第一个在太空行走的加加林，那第二个呢？世界上最高峰时珠穆朗玛峰，第二高峰呢？<br style="padding: 0px; margin: 0px;" />
+第一个汽车的是美国福特，那第二个呢？第一个把方便面引进中国大陆的是康师傅，那第二个呢？<br style="padding: 0px; margin: 0px;" />
+这就是先入为主的印象，往往会一直存在于人的脑海之中，因此根据行销学上法则：消费者对&quot;一&quot;记忆印象深刻。</span><br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 20px;"><span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><strong style="padding: 0px; margin: 0px;">&ldquo;第一&rdquo;要胜过&ldquo;更好&rdquo;。</strong></span></span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">创造一种新产品，按照一般的经验，最先进入人们脑海的产品，<br style="padding: 0px; margin: 0px;" />
+平均而言，比第二的同类市场占有率要多一倍，而第二位比第三位又要多一倍。<br style="padding: 0px; margin: 0px;" />
+如中国有这么去屑洗发水，可是宝洁公司的 海飞丝，市场份额站到60%以上，为什么？<br style="padding: 0px; margin: 0px;" />
+因为宝洁海飞丝是第一个提出去屑这个概念的，因此消费者对它比较深刻。</span></span><br style="padding: 0px; margin: 0px;" />
+
+           </div>
+        <!-- /content -->
+        <div class="dede_pages">
+          <ul class="pagelist">
+            
+          </ul>
+        </div>
+        <!-- /pages -->
+        <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+        <div class="handle">
+          <div class="context">
+            <ul>
+              <li>上一篇：<a href='/a/gongsidongtai/pinpaizhishi/47.html'>企业如何选择VI设计公司</a> </li>
+              <li>下一篇：<a href='/a/gongsidongtai/pinpaizhishi/49.html'>2012年设计行业最流行的颜色</a> </li>
+            </ul>
+          </div>
+          <!-- /context --> 
+        </div>
+        <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+        <div class="ar_likeart"> <span>[相关文章]</span>
+          <ul>
+            <li>> <a title="东莞新锐的品牌策划设计机构 " href="/a/gongsidongtai/pinpaizhishi/52.html">东莞新锐的品牌策划设计机构</a></li>
+<li>> <a title="在设计应用中什么颜色最高档 " href="/a/gongsidongtai/pinpaizhishi/51.html">在设计应用中什么颜色最高档</a></li>
+<li>> <a title="浅谈标志在VI设计中的重要性 " href="/a/gongsidongtai/pinpaizhishi/50.html">浅谈标志在VI设计中的重要性</a></li>
+<li>> <a title="2012年设计行业最流行的颜色 " href="/a/gongsidongtai/pinpaizhishi/49.html">2012年设计行业最流行的颜色</a></li>
+<li>> <a title="得品牌者得市场（龍的品牌设 " href="/a/gongsidongtai/pinpaizhishi/48.html">得品牌者得市场（龍的品牌设</a></li>
+<li>> <a title="企业如何选择VI设计公司 " href="/a/gongsidongtai/pinpaizhishi/47.html">企业如何选择VI设计公司</a></li>
+<li>> <a title="东莞企业品牌建设现状及发展 " href="/a/gongsidongtai/pinpaizhishi/46.html">东莞企业品牌建设现状及发展</a></li>
+<li>> <a title="关于CIS、VI、MI、BI " href="/a/gongsidongtai/pinpaizhishi/45.html">关于CIS、VI、MI、BI</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /页面右边 --> 
+</div>
+<!-- //底部模板 -->
+
+
+<div class="w980 center clear clr mt3 footer_line">
+  <div class="fri_list clear clr">
+    <ul>
+      <li>友情链接:</li>
+      <li><a href='http://www.dedecms.com' target='_blank'>织梦CMS官方</a> </li><li><a href='http://docs.dedecms.com/' target='_blank'>DedeCMS维基手册</a> </li><li><a href='http://bbs.dedecms.com' target='_blank'>织梦技术论坛</a> </li>
+    </ul>
+  </div>
+</div>
+<div class="w980 center clear clr mt1">
+  <div class="copyright_l">&nbsp;&nbsp;Copyright &copy; 2002-2011 DEDECMS.COM 织梦科技 版权所有 <a href=http://www.dedecms.com target='_blank'>Power by DedeCms</a><br/>
+    地址：海南省海口市龙华区国贸玉沙路　电话：0898-89919095 传真：0898-27225688</div>
+  <div class="copyright_r"><a href="#" target="_blank">网站地图</a> <a href="#" target="_blank">TAG标签</a> <a href="#" class="rss" target="_blank">RSS订阅</a> 技术支持：织梦猫<br/>
+    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <span class="bds_more">分享到：</span> <a class="bds_qzone"></a> <a class="bds_tsina"></a> <a class="bds_tqq"></a> <a class="bds_renren"></a> <a class="shareCount"></a> </div>
+    <div style="width:0px; height:0px;overflow:hidden;"> <a href="http://sf999.nl" target="_blank">sf999</a></div>
+    <script type="text/javascript" id="bdshare_js" data="type=tools" ></script> 
+    <script type="text/javascript" id="bdshell_js"></script> 
+    <script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script> 
+    <!-- Baidu Button END --> 
+  </div>
+</div>
+<div class="clear clr mt3">
+  <div class="footer  w980 center">
+    <div class="foot_l">海口龙川文化传播机构</div>
+    <div class="foot_c"><img src="/templets/default/images/footer_logo.gif" /></div>
+    <div class="foot_r">YOUFANG<BR/>
+      CULTURAL COMMONICATIONS<BR/>
+      LIMITED</div>
+  </div>
+</div>
+<DIV id="STATICMENU" style="Z-INDEX: 989; right: 0px; VISIBILITY: visible; WIDTH: 110px; POSITION: absolute; TOP: 165px;">
+  <div style="height:130px;"><img src="/templets/default/images/top.jpg" border="0" usemap="#Map"></div>
+  <div style=" width:110px; background-color:#FFFFFF; text-align:center; padding:8px 0;">
+    <div style="margin:0 auto; width:90px;">
+      <dl>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:1900318882:41" alt="" width="74" height="22" border=0></A></dd>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:48109335:41" alt="" width="74" height="22" border=0></A></dd>
+      </dl>
+    </div>
+  </div>
+  <div style="background-color:#e50081; text-align:center;padding:5px;margin-top:1px;font-size:14px; line-height:20px;color:#FFFFFF">咨询热线<br/>
+    0898-89237995</div>
+  <SCRIPT language="javascript">
+var QuickScrollYLast=0;
+var STATICMENU=document.getElementById("STATICMENU")
+window.setInterval("LoadMenu()",1);
+function LoadMenu(){
+    var QuickScrollYDefault;
+    if(document.documentElement&&document.documentElement.scrollTop){
+        QuickScrollYDefault=document.documentElement.scrollTop;
+    }else if(document.body){
+        QuickScrollYDefault=document.body.scrollTop;
+    }else{
+    }
+    QuickPercent=.1*(QuickScrollYDefault-QuickScrollYLast);
+    if(QuickPercent>0){
+        QuickPercent=Math.ceil(QuickPercent);
+    }else{
+        QuickPercent=Math.floor(QuickPercent);
+    }
+    STATICMENU.style.top=parseInt(STATICMENU.style.top)+QuickPercent+"px";
+    QuickScrollYLast=QuickScrollYLast+QuickPercent;
+}
+
+function qq_close(){
+	STATICMENU.style.display='none';	
+}
+</SCRIPT> 
+</DIV>
+<map name="Map">
+  <area shape="rect" coords="94,4,108,18" href="javascript:qq_close();">
+</map>
+ 
+<!-- /footer -->
+</body>
+</html>

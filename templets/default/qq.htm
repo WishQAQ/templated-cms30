@@ -1,0 +1,42 @@
+<DIV id="STATICMENU" style="Z-INDEX: 989; right: 0px; VISIBILITY: visible; WIDTH: 110px; POSITION: absolute; TOP: 165px;">
+  <div style="height:130px;"><img src="{dede:global.cfg_templets_skin/}/images/top.jpg" border="0" usemap="#Map"></div>
+  <div style=" width:110px; background-color:#FFFFFF; text-align:center; padding:8px 0;">
+    <div style="margin:0 auto; width:90px;">
+      <dl>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:1900318882:41" alt="" width="74" height="22" border=0></A></dd>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:48109335:41" alt="" width="74" height="22" border=0></A></dd>
+      </dl>
+    </div>
+  </div>
+  <div style="background-color:#e50081; text-align:center;padding:5px;margin-top:1px;font-size:14px; line-height:20px;color:#FFFFFF">咨询热线<br/>
+    0898-89237995</div>
+  <SCRIPT language="javascript">
+var QuickScrollYLast=0;
+var STATICMENU=document.getElementById("STATICMENU")
+window.setInterval("LoadMenu()",1);
+function LoadMenu(){
+    var QuickScrollYDefault;
+    if(document.documentElement&&document.documentElement.scrollTop){
+        QuickScrollYDefault=document.documentElement.scrollTop;
+    }else if(document.body){
+        QuickScrollYDefault=document.body.scrollTop;
+    }else{
+    }
+    QuickPercent=.1*(QuickScrollYDefault-QuickScrollYLast);
+    if(QuickPercent>0){
+        QuickPercent=Math.ceil(QuickPercent);
+    }else{
+        QuickPercent=Math.floor(QuickPercent);
+    }
+    STATICMENU.style.top=parseInt(STATICMENU.style.top)+QuickPercent+"px";
+    QuickScrollYLast=QuickScrollYLast+QuickPercent;
+}
+
+function qq_close(){
+	STATICMENU.style.display='none';	
+}
+</SCRIPT> 
+</DIV>
+<map name="Map">
+  <area shape="rect" coords="94,4,108,18" href="javascript:qq_close();">
+</map>

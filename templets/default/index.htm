@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+                       (0 0)
+   +-------------oOO----(_)----------------+
+   |           Powered By 织梦猫           |
+   |            www.dedemao.com            |
+   |        E-mail:admin@dedemao.com       |
+   +--------------------------oOO----------+
+                      |__|__|
+                       || ||
+                      ooO Ooo
+-->
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+<link href="{dede:global.cfg_templets_skin/}/css/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_cmsurl/}/include/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/jquery-1.3.1.js"></script>
+<script type="text/javascript">
+			$(document).ready(function(){
+				$('.boxgrid.slideright').hover(function(){
+					$(".cover", this).stop().animate({left:'200px'},{queue:false,duration:300});
+				}, function() {
+					$(".cover", this).stop().animate({left:'0px'},{queue:false,duration:300});
+				});
+
+			});
+</script>
+<script language="javascript" type="text/javascript">
+<!--
+	$(function(){
+		$("a[_for]").mouseover(function(){
+			$(this).parents().children("a[_for]").removeClass("thisclass").parents().children("dd").hide();
+			$(this).addClass("thisclass").blur();
+			$("#"+$(this).attr("_for")).show();
+		});
+		$("a[_for=uc_member]").mouseover();
+		$("a[_for=flink_1]").mouseover();
+	});
+	
+	function CheckLogin(){
+	  var taget_obj = document.getElementById('_userlogin');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("{dede:global.cfg_cmspath/}/member/ajax_loginsta.php");
+	  DedeXHTTP = null;
+	}
+-->
+</script>
+<script language="javascript">
+var Speed_1 =5; //速度(毫秒)
+var Space_1 = 5; //每次移动(px)
+var PageWidth_1 = 154 * 1; //翻页宽度
+var interval_1 = 3000; //翻页间隔
+var fill_1 = 0; //整体移位
+var MoveLock_1 = false;
+var MoveTimeObj_1;
+var MoveWay_1="right";
+var Comp_1 = 0;
+var AutoPlayObj_1=null;
+function GetObj(objName){if(document.getElementById){return eval('document.getElementById("'+objName+'")')}else{return eval('document.all.'+objName)}}
+function AutoPlay_1(){clearInterval(AutoPlayObj_1);AutoPlayObj_1=setInterval('ISL_GoDown_1();ISL_StopDown_1();',interval_1)}
+function ISL_GoUp_1(){if(MoveLock_1)return;clearInterval(AutoPlayObj_1);MoveLock_1=true;MoveWay_1="left";MoveTimeObj_1=setInterval('ISL_ScrUp_1();',Speed_1);}
+function ISL_StopUp_1(){if(MoveWay_1 == "right"){return};clearInterval(MoveTimeObj_1);if((GetObj('ISL_Cont_1').scrollLeft-fill_1)%PageWidth_1!=0){Comp_1=fill_1-(GetObj('ISL_Cont_1').scrollLeft%PageWidth_1);CompScr_1()}else{MoveLock_1=false}
+AutoPlay_1()}
+function ISL_ScrUp_1(){if(GetObj('ISL_Cont_1').scrollLeft<=0){GetObj('ISL_Cont_1').scrollLeft=GetObj('ISL_Cont_1').scrollLeft+GetObj('List1_1').offsetWidth}
+GetObj('ISL_Cont_1').scrollLeft-=Space_1}
+function ISL_GoDown_1(){clearInterval(MoveTimeObj_1);if(MoveLock_1)return;clearInterval(AutoPlayObj_1);MoveLock_1=true;MoveWay_1="right";ISL_ScrDown_1();MoveTimeObj_1=setInterval('ISL_ScrDown_1()',Speed_1)}
+function ISL_StopDown_1(){if(MoveWay_1 == "left"){return};clearInterval(MoveTimeObj_1);if(GetObj('ISL_Cont_1').scrollLeft%PageWidth_1-(fill_1>=0?fill_1:fill_1+1)!=0){Comp_1=PageWidth_1-GetObj('ISL_Cont_1').scrollLeft%PageWidth_1+fill_1;CompScr_1()}else{MoveLock_1=false}
+AutoPlay_1()}
+function ISL_ScrDown_1(){if(GetObj('ISL_Cont_1').scrollLeft>=GetObj('List1_1').scrollWidth){GetObj('ISL_Cont_1').scrollLeft=GetObj('ISL_Cont_1').scrollLeft-GetObj('List1_1').scrollWidth}
+GetObj('ISL_Cont_1').scrollLeft+=Space_1}
+function CompScr_1(){if(Comp_1==0){MoveLock_1=false;return}
+var num,TempSpeed=Speed_1,TempSpace=Space_1;if(Math.abs(Comp_1)<PageWidth_1/2){TempSpace=Math.round(Math.abs(Comp_1/Space_1));if(TempSpace<1){TempSpace=1}}
+if(Comp_1<0){if(Comp_1<-TempSpace){Comp_1+=TempSpace;num=TempSpace}else{num=-Comp_1;Comp_1=0}
+GetObj('ISL_Cont_1').scrollLeft-=num;setTimeout('CompScr_1()',TempSpeed)}else{if(Comp_1>TempSpace){Comp_1-=TempSpace;num=TempSpace}else{num=Comp_1;Comp_1=0}
+GetObj('ISL_Cont_1').scrollLeft+=num;setTimeout('CompScr_1()',TempSpeed)}}
+function picrun_ini(){
+GetObj("List2_1").innerHTML=GetObj("List1_1").innerHTML;
+GetObj('ISL_Cont_1').scrollLeft=fill_1>=0?fill_1:GetObj('List1_1').scrollWidth-Math.abs(fill_1);
+GetObj("ISL_Cont_1").onmouseover=function(){clearInterval(AutoPlayObj_1)}
+GetObj("ISL_Cont_1").onmouseout=function(){AutoPlay_1()}
+AutoPlay_1();
+}
+//-->
+</script>
+</head>
+<body class="index">
+{dede:include filename="head_index.htm"/} 
+<!-- /header -->
+
+<div class="w980 center clear clr mt2">
+  <div class="boxgrid slideright"> <img class="cover" src="{dede:global.cfg_templets_skin/}/images/fw_01.gif"/> <a href="/a/gongsizuopin/pinpaishibieVI/" class="fwfw_1"></a>
+    </p>
+  </div>
+  <div class="boxgrid slideright"> <img class="cover" src="{dede:global.cfg_templets_skin/}/images/fw_02.gif"/> <a href="/a/gongsizuopin/pinpaibiaozhi/" class="fwfw_2"></a>
+    </p>
+  </div>
+  <div class="boxgrid slideright"> <img class="cover" src="{dede:global.cfg_templets_skin/}/images/fw_03.gif"/> <a href="/a/gongsizuopin/chanpinbaozhuang/" class="fwfw_3"></a>
+    </p>
+  </div>
+  <div class="boxgrid slideright"> <img class="cover" src="{dede:global.cfg_templets_skin/}/images/fw_04.gif"/> <a href="/a/gongsizuopin/pinpaiwangzhan/" class="fwfw_4"></a>
+    </p>
+  </div>
+  <div class="boxgrid slideright"> <img class="cover" src="{dede:global.cfg_templets_skin/}/images/fw_05.gif"/> <a href="/a/gongsizuopin/pinpaiwangzhan/" class="fwfw_5"></a>
+    </p>
+  </div>
+</div>
+<div class="w980 center clear clr mt3">
+  <div class="top_h"><a class="i_more" href="/a/gongsizuopin/">+MORE</a>经典案例展示</div>
+  <div class="icase_list clear clr mt2">
+    <ul>
+      {dede:arclist row='10' orderby='id' typeid='7' imgwidth='185' imgheight='120'}
+      <li><a href="[field:arcurl/]">[field:image/]
+        <p>[field:title/]</p>
+        </a></li>
+      {/dede:arclist}
+    </ul>
+  </div>
+</div>
+<div class="w980 center clear clr mt2">
+<div class="top_h">合作伙伴</div>
+<div class="hb_logo mt2"> 
+  <!-- /滚动图片 -->
+  <div class="case_all">
+    <div class="case_left"><a onmouseup="ISL_StopUp_1()" onmousedown="ISL_GoUp_1()" onmouseout="ISL_StopUp_1()" href="javascript:void(0);" target="_self"><img id="LeftArr" src="{dede:global.cfg_templets_skin/}/images/green_skin_l.gif" alt="上一个案例"></a></div>
+    <div class="case_width" id="ISL_Cont_1">
+      <div class="ScrCont">
+        <div id="List1_1"> <a> <img src="{dede:global.cfg_templets_skin/}/images/3-1305291123540-L.jpg" border="0" width="140" height="84"></a> <a> <img src="{dede:global.cfg_templets_skin/}/images/3-130529111K20-L.jpg" border="0" width="140" height="84"</a> <a> <img src="{dede:global.cfg_templets_skin/}/images/3-1305291103560-L.jpg" border="0" width="140" height="84"</a> <a> <img src="{dede:global.cfg_templets_skin/}/images/3-1305291100070-L.jpg" border="0" width="140" height="84"></a> <a> <img src="{dede:global.cfg_templets_skin/}/images/3-13052911092RT.jpg" border="0" width="140" height="84"></a> <a><img src="{dede:global.cfg_templets_skin/}/images/3-1305291051150-L.jpg" border="0" width="140" height="84"></a> <a><img src="{dede:global.cfg_templets_skin/}/images/3-130529100512325.jpg" border="0" width="140" height="84"></a> <a><img src="{dede:global.cfg_templets_skin/}/images/3-13052G64025519.gif" border="0" width="140" height="84"></a> </div>
+      </div>
+    </div>
+    <div class="case_right"><a onmouseup="ISL_StopDown_1()" onmousedown="ISL_GoDown_1()" onmouseout="ISL_StopDown_1()" href="javascript:void(0);" target="_self"><img id="RightArr" src="{dede:global.cfg_templets_skin/}/images/green_skin_r.gif" alt="下一个案例"></a></div>
+  </div>
+  <!-- /滚动图片 --> 
+</div>
+<div class="w980 center clear clr mt3">
+  <div class="news_left">
+    <div class="top_h"><a class="i_more" href="/a/gongsidongtai/">+MORE</a>公司新闻</div>
+    <div class="news_pic clear clr"> {dede:arclist typeid='23' row='1' titlelen='60' infolen='180'  imgwidth='143' imgheight='90' flag ='c'}
+      <div class="newspic_l"><a href="[field:arcurl/]" >[field:image/]</a></div>
+      <div class="newspic_r">
+        <p class="newspic_bt"><a href="[field:arcurl /]">[field:title /]</a></p>
+        <p class="mainr_text">[field:info/]……<span class="DBE">[<a href="[field:filename/]" title="[field:title/]" target="_blank">详细</a>]</span></p>
+      </div>
+      {/dede:arclist} </div>
+    <div class="news1_list">
+      <ul>
+        {dede:arclist typeid='23' titlelen='80' row='6' orderby='id'}
+        <li>· <a href="[field:arcurl /]">[field:title /]</a></li>
+        {/dede:arclist}
+      </ul>
+    </div>
+  </div>
+  <div class="news_right">
+    <div class="top_hu">关于我们</div>
+    <div class="i_gsjj"> {dede:sql sql='Select content from dede_arctype where id=1'} 
+      [field:content  function='cn_substr(html2text(@me),300)'/]...
+      {/dede:sql}
+      <p class="mt1 gsjj_col"><a href="/a/guanyuwomen/">>> 了解更多</a></p>
+    </div>
+    <div class="top_l"><a class="i_more" href="/a/gongsidongtai/shejizhishi/">+MORE</a>知识分享</div>
+    <div class="zsfx_list">
+      <ul>
+        {dede:arclist typeid='24' titlelen='45' row='10' orderby='id'}
+        <li>· <a href="[field:arcurl /]">[field:title /]</a></li>
+        {/dede:arclist}
+      </ul>
+    </div>
+  </div>
+</div>
+{dede:include filename="footer.htm"/} 
+<!-- /footer --> 
+<SCRIPT type=text/javascript>
+<!--
+picrun_ini()
+//-->
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,1 @@
+ <a class="pic_menu_ii" href='[field:typeurl/]'>[field:typename/]</a> 

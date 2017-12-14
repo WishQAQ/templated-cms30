@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>签约东莞绿洲文化艺术有限公司旗下“红社”艺_大气品牌传播广告设计类企业公司织梦模板</title>
+<meta name="keywords" content="签约,东莞,绿洲,文化艺术,有限公司,旗下,“," />
+<meta name="description" content="由于对龍大专业实力的认可，东莞市绿洲文化艺术有限公司和龍大持续了近3年的设计合作，服务涉及艺术家展览设计、国展推广形象设计、品牌形象设计、包装设计、系列画册设计 继" />
+<link href="/templets/default/css/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="/include/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function CheckLogin(){
+	  var taget_obj = document.getElementById('_ajax_feedback');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("/member/ajax_feedback.php");
+	  DedeXHTTP = null;
+}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+-->
+</script>
+</head>
+<body class="articleview">
+<script type="text/javascript" src="/templets/default/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#focus").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#focus ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+	
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#focus").append(btn);
+	$("#focus .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#focus .btn span").css("opacity",0.4).mouseenter(function() {
+		index = $("#focus .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseenter");
+
+	//上一页、下一页按钮透明度处理
+	$("#focus .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},600);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},600);
+	});
+
+	//上一页按钮
+	$("#focus .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#focus .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#focus ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#focus").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#focus ul").stop(true,false).animate({"left":nowLeft},600); //通过animate()调整ul元素滚动到计算出的position
+		//$("#focus .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#focus .btn span").stop(true,false).animate({"opacity":"0.4"},600).eq(index).stop(true,false).animate({"opacity":"1"},600); //为当前的按钮切换到选中的效果
+	}
+});
+
+</script>
+
+<div class="w980 center clr">
+  <div class="header">
+    <div class="logo_l">
+      <div class="logo"><a href="/"><img src="/templets/default/images/logo.png" alt="大气品牌传播广告设计类企业公司织梦模板" style="margin-top:20px;"/></a></div>
+      <div class="logo_otherbt"> <a href="http://weibo.com/"><img src="/templets/default/images/logobt_01.gif" /></a> <a href="/a/zhaopingangwei/"><img src="/templets/default/images/logobt_02.gif" /></a> <a href="/a/gongsidongtai/"><img src="/templets/default/images/logobt_03.gif" /></a> </div>
+    </div>
+    <div class="logo_r">
+      <div class="top_tel"><img src="/templets/default/images/top_tel.gif" /></div>
+      <div class="menu_bg clr">
+        <div id="navMenu">
+          <ul>
+            <li><a href='/'>首 页</a></li>
+            
+            <li><a href='/a/gongsizuopin/'  rel='dropmenu7'>公司作品</a></li>
+            
+            <li><a href='/a/gongsifuwu/'  rel='dropmenu15'>公司服务</a></li>
+            <li class='hover'><a href='/a/gongsidongtai/'  rel='dropmenu21'>公司动态</a></li>
+            <li><a href='/a/zhaopingangwei/' >招聘岗位</a></li>
+            
+            <li><a href='/a/lianxiwomen/' >联系我们</a></li>
+            
+          </ul>
+        </div>
+        <script type='text/javascript' src='/templets/default/js/dropdown.js'></script> 
+        <ul id="dropmenu7" class="dropMenu">
+          
+          <li><a href="/a/gongsizuopin/pinpaishibieVI/">品牌识别VI</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaibiaozhi/">品牌标志</a></li>
+          
+          <li><a href="/a/gongsizuopin/chanpinbaozhuang/">产品包装</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaihuace/">品牌画册</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaiwangzhan/">品牌网站</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaizhanlan/">品牌展览</a></li>
+          
+          <li><a href="/a/gongsizuopin/sheyingzuopin/">摄影作品</a></li>
+          
+        </ul><ul id="dropmenu15" class="dropMenu">
+          
+          <li><a href="/a/gongsifuwu/fuwulingyu/">服务领域</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuduixiang/">服务对象</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuliucheng/">服务流程</a></li>
+          
+          <li><a href="/a/gongsifuwu/hezuofangshi/">合作方式</a></li>
+          
+        </ul><ul id="dropmenu21" class="dropMenu">
+          
+          <li><a href="/a/gongsidongtai/gongsixinwen/">公司新闻</a></li>
+          
+          <li><a href="/a/gongsidongtai/shejizhishi/">设计知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizhishi/">品牌知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizixun/">品牌资讯</a></li>
+          
+        </ul><ul id="dropmenu29" class="dropMenu">
+          
+        </ul><ul id="dropmenu27" class="dropMenu">
+          
+        </ul> 
+        <script type="text/javascript">cssdropdown.startchrome("navMenu")</script> 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w980 center clear clr">
+  <div class="i_banner">
+    <div class="wrapper">
+      <div id="focus">
+        <ul>
+          <li><img src='/uploads/allimg/150911/1-1509111221150-L.jpg' border='0' width='1000' height='341' alt='幻灯11'></li>
+<li><img src='/uploads/allimg/150911/1-1509111221040-L.jpg' border='0' width='1000' height='341' alt='幻灯10'></li>
+<li><img src='/uploads/allimg/150911/1-1509111220540-L.jpg' border='0' width='1000' height='341' alt='幻灯9'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103130-L.jpg' border='0' width='1000' height='341' alt='幻灯8'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103050-L.jpg' border='0' width='1000' height='341' alt='幻灯7'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102550-L.jpg' border='0' width='1000' height='341' alt='幻灯6'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102470-L.jpg' border='0' width='1000' height='341' alt='幻灯5'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102350-L.jpg' border='0' width='1000' height='341' alt='幻灯4'></li>
+<li><img src='/uploads/150731/1-150I1110223318.jpg' border='0' width='1000' height='341' alt='幻灯3'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102050-L.jpg' border='0' width='1000' height='341' alt='幻灯2'></li>
+
+        </ul>
+      </div>
+    </div>
+    <!-- wrapper end --> 
+  </div>
+</div>
+ 
+<!-- /header -->
+<div class="w980 center clear clr mt1"> <div id="left_diy" class="mt1">
+  <div class="left_top">公司动态</div>
+  <div class="left_menu">
+    <ul>
+      <li><a href='/a/gongsidongtai/gongsixinwen/' class='thisclass2'>+ 公司新闻</a></li>
+      <li><a href='/a/gongsidongtai/shejizhishi/'>+ 设计知识</a></li>
+      
+      <li><a href='/a/gongsidongtai/pinpaizhishi/'>+ 品牌知识</a></li>
+      
+      <li><a href='/a/gongsidongtai/pinpaizixun/'>+ 品牌资讯</a></li>
+      
+    </ul>
+  </div>
+</div>
+ 
+  
+  <!-- /页面右边 -->
+  <div id="right_diy">
+    <div class="right_nav">您当前的位置:<a href='http://localhost/'>主页</a> > <a href='/a/gongsidongtai/'>公司动态</a> > <a href='/a/gongsidongtai/gongsixinwen/'>公司新闻</a> > </div>
+    <div class="right_body clear clr">
+      <div class="viewbox">
+        <div class="title">
+          <h2>签约东莞绿洲文化艺术有限公司旗下“红社”艺</h2>
+        </div>
+        <!-- /title -->
+        <div class="info"> <small>发布于:</small>2015-07-31<small>来源:</small>未知 <small>作者:</small>admin<small>点击:</small> 
+          <script src="/plus/count.php?view=yes&aid=28&mid=1" type='text/javascript' language="javascript"></script> 
+          次</div>
+        <!-- /info -->
+        <div class="content"> <span style="color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">由于对龍大专业实力的认可，东莞市绿洲文化艺术有限公司和龍大持续了近3年的设计合作，服务涉及艺术家展览设计、国展推广形象设计、品牌形象设计、包装设计、系列画册设计&hellip;&hellip;</span><br style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;" />
+<span style="color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">继&ldquo;墨姿社&rdquo;之后，东莞市绿洲文化艺术有限公司再次委托为其进行新品牌&ldquo;红社&rdquo;进行全新品牌形象设计</span>
+           </div>
+        <!-- /content -->
+        <div class="dede_pages">
+          <ul class="pagelist">
+            
+          </ul>
+        </div>
+        <!-- /pages -->
+        <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+        <div class="handle">
+          <div class="context">
+            <ul>
+              <li>上一篇：<a href='/a/gongsidongtai/gongsixinwen/27.html'>签约中山南威灯饰有限公司-南威·华斯迪品牌形</a> </li>
+              <li>下一篇：<a href='/a/gongsidongtai/gongsixinwen/29.html'>签约东莞市中心定点屠宰场股份有限公司VIS设计</a> </li>
+            </ul>
+          </div>
+          <!-- /context --> 
+        </div>
+        <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+        <div class="ar_likeart"> <span>[相关文章]</span>
+          <ul>
+            <li>> <a title="签约“POPWAY”时尚潮牌品牌策 " href="/a/gongsidongtai/gongsixinwen/36.html">签约“POPWAY”时尚潮牌品牌策</a></li>
+<li>> <a title="东莞通采用龍大设计的一周年 " href="/a/gongsidongtai/gongsixinwen/31.html">东莞通采用龍大设计的一周年</a></li>
+<li>> <a title="签约君洛克国际品牌形象推广 " href="/a/gongsidongtai/gongsixinwen/34.html">签约君洛克国际品牌形象推广</a></li>
+<li>> <a title="签约田太郎品牌VIS形象设计 " href="/a/gongsidongtai/gongsixinwen/35.html">签约田太郎品牌VIS形象设计</a></li>
+<li>> <a title="签约吉林泽丰矿业有限责任公 " href="/a/gongsidongtai/gongsixinwen/33.html">签约吉林泽丰矿业有限责任公</a></li>
+<li>> <a title="签约国有企业广东广垦绿色蔬 " href="/a/gongsidongtai/gongsixinwen/32.html">签约国有企业广东广垦绿色蔬</a></li>
+<li>> <a title="签约宏源物流企业形象设计 " href="/a/gongsidongtai/gongsixinwen/30.html">签约宏源物流企业形象设计</a></li>
+<li>> <a title="签约东莞市中心定点屠宰场股 " href="/a/gongsidongtai/gongsixinwen/29.html">签约东莞市中心定点屠宰场股</a></li>
+<li>> <a title="签约东莞绿洲文化艺术有限公 " href="/a/gongsidongtai/gongsixinwen/28.html">签约东莞绿洲文化艺术有限公</a></li>
+<li>> <a title="签约中山南威灯饰有限公司 " href="/a/gongsidongtai/gongsixinwen/27.html">签约中山南威灯饰有限公司</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /页面右边 --> 
+</div>
+<!-- //底部模板 -->
+
+
+<div class="w980 center clear clr mt3 footer_line">
+  <div class="fri_list clear clr">
+    <ul>
+      <li>友情链接:</li>
+      <li><a href='http://www.dedecms.com' target='_blank'>织梦CMS官方</a> </li><li><a href='http://docs.dedecms.com/' target='_blank'>DedeCMS维基手册</a> </li><li><a href='http://bbs.dedecms.com' target='_blank'>织梦技术论坛</a> </li>
+    </ul>
+  </div>
+</div>
+<div class="w980 center clear clr mt1">
+  <div class="copyright_l">&nbsp;&nbsp;Copyright &copy; 2002-2011 DEDECMS.COM 织梦科技 版权所有 <a href=http://www.dedecms.com target='_blank'>Power by DedeCms</a><br/>
+    地址：海南省海口市龙华区国贸玉沙路　电话：0898-89919095 传真：0898-27225688</div>
+  <div class="copyright_r"><a href="#" target="_blank">网站地图</a> <a href="#" target="_blank">TAG标签</a> <a href="#" class="rss" target="_blank">RSS订阅</a> 技术支持：织梦猫<br/>
+    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <span class="bds_more">分享到：</span> <a class="bds_qzone"></a> <a class="bds_tsina"></a> <a class="bds_tqq"></a> <a class="bds_renren"></a> <a class="shareCount"></a> </div>
+    <div style="width:0px; height:0px;overflow:hidden;"> <a href="http://sf999.nl" target="_blank">sf999</a></div>
+    <script type="text/javascript" id="bdshare_js" data="type=tools" ></script> 
+    <script type="text/javascript" id="bdshell_js"></script> 
+    <script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script> 
+    <!-- Baidu Button END --> 
+  </div>
+</div>
+<div class="clear clr mt3">
+  <div class="footer  w980 center">
+    <div class="foot_l">海口龙川文化传播机构</div>
+    <div class="foot_c"><img src="/templets/default/images/footer_logo.gif" /></div>
+    <div class="foot_r">YOUFANG<BR/>
+      CULTURAL COMMONICATIONS<BR/>
+      LIMITED</div>
+  </div>
+</div>
+<DIV id="STATICMENU" style="Z-INDEX: 989; right: 0px; VISIBILITY: visible; WIDTH: 110px; POSITION: absolute; TOP: 165px;">
+  <div style="height:130px;"><img src="/templets/default/images/top.jpg" border="0" usemap="#Map"></div>
+  <div style=" width:110px; background-color:#FFFFFF; text-align:center; padding:8px 0;">
+    <div style="margin:0 auto; width:90px;">
+      <dl>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:1900318882:41" alt="" width="74" height="22" border=0></A></dd>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:48109335:41" alt="" width="74" height="22" border=0></A></dd>
+      </dl>
+    </div>
+  </div>
+  <div style="background-color:#e50081; text-align:center;padding:5px;margin-top:1px;font-size:14px; line-height:20px;color:#FFFFFF">咨询热线<br/>
+    0898-89237995</div>
+  <SCRIPT language="javascript">
+var QuickScrollYLast=0;
+var STATICMENU=document.getElementById("STATICMENU")
+window.setInterval("LoadMenu()",1);
+function LoadMenu(){
+    var QuickScrollYDefault;
+    if(document.documentElement&&document.documentElement.scrollTop){
+        QuickScrollYDefault=document.documentElement.scrollTop;
+    }else if(document.body){
+        QuickScrollYDefault=document.body.scrollTop;
+    }else{
+    }
+    QuickPercent=.1*(QuickScrollYDefault-QuickScrollYLast);
+    if(QuickPercent>0){
+        QuickPercent=Math.ceil(QuickPercent);
+    }else{
+        QuickPercent=Math.floor(QuickPercent);
+    }
+    STATICMENU.style.top=parseInt(STATICMENU.style.top)+QuickPercent+"px";
+    QuickScrollYLast=QuickScrollYLast+QuickPercent;
+}
+
+function qq_close(){
+	STATICMENU.style.display='none';	
+}
+</SCRIPT> 
+</DIV>
+<map name="Map">
+  <area shape="rect" coords="94,4,108,18" href="javascript:qq_close();">
+</map>
+ 
+<!-- /footer -->
+</body>
+</html>

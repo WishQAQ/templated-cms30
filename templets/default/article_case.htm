@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/css/picture.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function CheckLogin(){
+	var taget_obj = document.getElementById('_ajax_feedback');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/member/ajax_feedback.php");
+	DedeXHTTP = null;
+}
+function checkSubmit(){
+	if(document.feedback.msg.value!='') document.feedback.submit();
+	else alert("评论内容不能为空！");
+}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+	DedeXHTTP = null;
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+	DedeXHTTP = null;
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+
+
+  var shortname = ".html";
+  var npage = 1;
+	var totalpage = 1;
+	var namehand = '650';
+	var displaytype = 'st';
+	var gtimer = null;
+	//大图
+	function dPlayBig()
+	{
+		var imgObj = document.getElementById("bigimg");
+		window.open(imgObj.src);
+	}
+	//停止幻灯
+	function dStopPlay()
+	{
+		if(gtimer) clearTimeout(gtimer);
+		else dPlayNext();
+	}
+	//开始幻灯
+	function dStartPlay()
+	{
+		if(npage!=totalpage) {
+			gtimer = setTimeout("dPlayNext()",10000);
+		}
+	}
+
+	//上一张
+	function dPlayPre(){
+
+	if(npage<2)
+	{
+			alert("这是第一页");
+	}
+	else
+	{
+			if(npage==2) {
+				if(namehand!='') location.href = namehand+shortname;
+				else location.href = "view.php?aid=650";
+			} else if(displaytype=='st' && namehand!='') {
+				location.href = namehand+"_"+(npage-1)+shortname;
+			} else {
+				location.href = "view.php?aid=650&pageno="+(npage-1);
+			}
+		}
+	}
+
+	//下一张
+	function dPlayNext()
+	{
+		if(npage==totalpage) { alert("没有了哦"); }
+		else
+		{
+			if(displaytype=='st' && namehand!='') location.href = namehand+"_"+(npage+1)+shortname;
+			else location.href = "view.php?aid=650&pageno="+(npage+1);
+		}
+	}
+-->
+</script>
+</head>
+<body class="picboxview">
+{dede:include filename="head.htm"/} 
+<!-- /header -->
+<div class="w980 center clear clr mt1"> 
+  
+  <!-- /页面右边 -->
+  <div>
+    <div class="right_nav">您当前的位置:{dede:field name='position'/}</div>
+    <div class="pic_menu center clear clr"> <a class="pic_menu_ii">&nbsp;</a> {dede:channel type='son' currentstyle=" <a href='~typelink~' class='thisclass2 pic_menu_ii'>~typename~</a> "} <a class="pic_menu_ii" href='[field:typeurl/]'>[field:typename/]</a> {/dede:channel} </div>
+    <div class="right_body clear clr">
+      <div class="viewbox">
+        <div class="pic_name clear clr"><span class="pic_red">项目名称: </span>{dede:field.title/}</div>
+        <div class="pic_3t clear clr">
+          <p><span class="pic_red">委托单位: </span>{dede:field.hysx/}</p>
+          <p><span class="pic_red">服务内容: </span>{dede:field.fwxm/}</p>
+          <p><span class="pic_red">项目地点: </span>{dede:field.xmdd/}</p>
+        </div>
+        <div class="pic_content">{dede:field.body/}</div>
+        <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+        <div class="handle">
+          <div class="context">
+            <ul>
+              <li>{dede:prenext get='pre'/} </li>
+              <li>{dede:prenext get='next'/} </li>
+            </ul>
+          </div>
+          <!-- /context --> 
+        </div>
+        <!-- /handle --> 
+      </div>
+      <!-- /viewbox --> 
+    </div>
+  </div>
+  <!-- /页面右边 --> 
+</div>
+﻿ 
+<!-- //底部模板 --> 
+{dede:include filename="footer.htm"/} 
+<!-- /footer -->
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>招聘岗位_大气品牌传播广告设计类企业公司织梦模板</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="/templets/default/css/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+</head>
+<body class="channel">
+<script type="text/javascript" src="/templets/default/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#focus").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#focus ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+	
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#focus").append(btn);
+	$("#focus .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#focus .btn span").css("opacity",0.4).mouseenter(function() {
+		index = $("#focus .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseenter");
+
+	//上一页、下一页按钮透明度处理
+	$("#focus .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},600);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},600);
+	});
+
+	//上一页按钮
+	$("#focus .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#focus .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#focus ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#focus").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#focus ul").stop(true,false).animate({"left":nowLeft},600); //通过animate()调整ul元素滚动到计算出的position
+		//$("#focus .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#focus .btn span").stop(true,false).animate({"opacity":"0.4"},600).eq(index).stop(true,false).animate({"opacity":"1"},600); //为当前的按钮切换到选中的效果
+	}
+});
+
+</script>
+
+<div class="w980 center clr">
+  <div class="header">
+    <div class="logo_l">
+      <div class="logo"><a href="/"><img src="/templets/default/images/logo.png" alt="大气品牌传播广告设计类企业公司织梦模板" style="margin-top:20px;"/></a></div>
+      <div class="logo_otherbt"> <a href="http://weibo.com/"><img src="/templets/default/images/logobt_01.gif" /></a> <a href="/a/zhaopingangwei/"><img src="/templets/default/images/logobt_02.gif" /></a> <a href="/a/gongsidongtai/"><img src="/templets/default/images/logobt_03.gif" /></a> </div>
+    </div>
+    <div class="logo_r">
+      <div class="top_tel"><img src="/templets/default/images/top_tel.gif" /></div>
+      <div class="menu_bg clr">
+        <div id="navMenu">
+          <ul>
+            <li><a href='/'>首 页</a></li>
+            
+            <li><a href='/a/gongsizuopin/'  rel='dropmenu7'>公司作品</a></li>
+            
+            <li><a href='/a/gongsifuwu/'  rel='dropmenu15'>公司服务</a></li>
+            
+            <li><a href='/a/gongsidongtai/'  rel='dropmenu21'>公司动态</a></li>
+            <li class='hover'><a href='/a/zhaopingangwei/' >招聘岗位</a></li>
+            <li><a href='/a/lianxiwomen/' >联系我们</a></li>
+            
+          </ul>
+        </div>
+        <script type='text/javascript' src='/templets/default/js/dropdown.js'></script> 
+        <ul id="dropmenu7" class="dropMenu">
+          
+          <li><a href="/a/gongsizuopin/pinpaishibieVI/">品牌识别VI</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaibiaozhi/">品牌标志</a></li>
+          
+          <li><a href="/a/gongsizuopin/chanpinbaozhuang/">产品包装</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaihuace/">品牌画册</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaiwangzhan/">品牌网站</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaizhanlan/">品牌展览</a></li>
+          
+          <li><a href="/a/gongsizuopin/sheyingzuopin/">摄影作品</a></li>
+          
+        </ul><ul id="dropmenu15" class="dropMenu">
+          
+          <li><a href="/a/gongsifuwu/fuwulingyu/">服务领域</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuduixiang/">服务对象</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuliucheng/">服务流程</a></li>
+          
+          <li><a href="/a/gongsifuwu/hezuofangshi/">合作方式</a></li>
+          
+        </ul><ul id="dropmenu21" class="dropMenu">
+          
+          <li><a href="/a/gongsidongtai/gongsixinwen/">公司新闻</a></li>
+          
+          <li><a href="/a/gongsidongtai/shejizhishi/">设计知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizhishi/">品牌知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizixun/">品牌资讯</a></li>
+          
+        </ul><ul id="dropmenu29" class="dropMenu">
+          
+        </ul><ul id="dropmenu27" class="dropMenu">
+          
+        </ul> 
+        <script type="text/javascript">cssdropdown.startchrome("navMenu")</script> 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w980 center clear clr">
+  <div class="i_banner">
+    <div class="wrapper">
+      <div id="focus">
+        <ul>
+          <li><img src='/uploads/allimg/150911/1-1509111221150-L.jpg' border='0' width='1000' height='341' alt='幻灯11'></li>
+<li><img src='/uploads/allimg/150911/1-1509111221040-L.jpg' border='0' width='1000' height='341' alt='幻灯10'></li>
+<li><img src='/uploads/allimg/150911/1-1509111220540-L.jpg' border='0' width='1000' height='341' alt='幻灯9'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103130-L.jpg' border='0' width='1000' height='341' alt='幻灯8'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103050-L.jpg' border='0' width='1000' height='341' alt='幻灯7'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102550-L.jpg' border='0' width='1000' height='341' alt='幻灯6'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102470-L.jpg' border='0' width='1000' height='341' alt='幻灯5'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102350-L.jpg' border='0' width='1000' height='341' alt='幻灯4'></li>
+<li><img src='/uploads/150731/1-150I1110223318.jpg' border='0' width='1000' height='341' alt='幻灯3'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102050-L.jpg' border='0' width='1000' height='341' alt='幻灯2'></li>
+
+        </ul>
+      </div>
+    </div>
+    <!-- wrapper end --> 
+  </div>
+</div>
+ 
+<!-- /header -->
+<div class="w980 center clear clr mt1"> <div id="left_diy" class="mt1">
+  <div class="left_top">招聘岗位</div>
+  <div class="left_menu">
+    <ul>
+      
+    </ul>
+  </div>
+  <div class="clear clr mt1">
+    <form action="/plus/diy.php" enctype="multipart/form-data" method="post">
+      <input type="hidden" name="action" value="post" />
+      <input type="hidden" name="diyid" value="1" />
+      <input type="hidden" name="do" value="2" />
+      <table style="width:97%;" cellpadding="0" cellspacing="1">
+        <tr>
+          <td align="left" valign="middle">您的称呼：</td>
+        </tr>
+        <tr>
+          <td height="30"><input type='text' name='name' id='name' style='width:98%'  class='intxt' value='' /></td>
+        </tr>
+        <tr>
+          <td align="left" valign="middle">联系电话：</td>
+        </tr>
+        <tr>
+          <td height="30"><input type='text' name='tel' id='tel' style='width:98%'  class='intxt' value='' /></td>
+        </tr>
+        <tr>
+          <td align="left" valign="middle">E-Mail：</td>
+        </tr>
+        <tr>
+          <td height="30"><input type='text' name='email' id='email' style='width:98%'  class='intxt' value='' /></td>
+        </tr>
+        <tr>
+          <td height="30" align="left" valign="middle">内容：</td>
+        </tr>
+        <tr>
+          <td height="180"><textarea name='content' id='content' style='width:98%;height:180px'></textarea></td>
+        </tr>
+        <input type="hidden" name="dede_fields" value="name,text;tel,text;content,text;email,text" />
+        <input type="hidden" name="dede_fieldshash" value="261e72691d8077b59be1a4c11b1c1921" />
+      </table>
+      <div align='center' style='height:30px;padding-top:10px;'>
+        <input type="submit" name="submit" value="提 交" class='coolbg' />
+        &nbsp;
+        <input type="reset" name="reset" value="重 置" class='coolbg' />
+      </div>
+    </form>
+  </div>
+</div>
+ 
+  
+  <!-- /页面右边 -->
+  <div id="right_diy">
+    <div class="right_nav">您当前的位置:<a href='http://localhost/'>主页</a> > <a href='/a/zhaopingangwei/'>招聘岗位</a></div>
+    <div class="right_body clear clr"> &nbsp;&nbsp;<strong style="font-family: arial, helvetica, sans-serif; color: rgb(102, 102, 102); line-height: 24px; padding: 0px; margin: 0px;"><font color="#ff0000" size="4" style="padding: 0px; margin: 0px;">设计总监</font></strong>
+<hr style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma; line-height: 28px;" />
+<span style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma; line-height: 28px; font-size: 18px;"><span style="padding: 0px; margin: 0px; font-family: arial, helvetica, sans-serif;"><span style="padding: 0px; margin: 0px; font-size: 12px;">职位要求：<br style="padding: 0px; margin: 0px;" />
+3-5年专业品牌设计公司工作经验；<br style="padding: 0px; margin: 0px;" />
+熟练操作Photoshop、CorelDraw、Illustrator等各类设计软件；</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">对品牌设计具有独到的见解，具有准确的视觉表达能力，掌握标志设计、VI设计及VI手册制定的相关工作，曾参与过不同行业的品牌策划、品牌VI设计，对不同的行业能准确把握；</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">擅长画册设计、包装设计以及网页页面设计；</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">热爱设计事业，责任心强，善于指导新生设计师，带领团队完成项目；</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">具备优秀的审美能力和创新能力，善于为公司注入新鲜血液；</span><br style="padding: 0px; margin: 0px;" />
+<span style="padding: 0px; margin: 0px; font-size: 12px;">有良好的沟通能力，能向客户精确阐述设计理念以及客户谈判；</span></span></span>
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	<span style="padding: 0px; margin: 0px; font-size: 18px;"><span style="padding: 0px; margin: 0px; font-family: arial, helvetica, sans-serif;"><span style="padding: 0px; margin: 0px; font-size: 12px;">如果你有挑战精神，如果你需要平台发展，如果你觉得自己就应该是个设计总监，如果你&hellip;&hellip;<br style="padding: 0px; margin: 0px;" />
+	同时你又符合我们的基本条件</span><br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px; font-size: 12px;">欢迎您找我们谈谈</span></span></span></p>
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	<strong style="padding: 0px; margin: 0px;"><font color="#ff0000" size="4" style="padding: 0px; margin: 0px;">平面设计师</font></strong></p>
+<hr style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma; line-height: 28px;" />
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	职位要求：<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">设计类专业专科以上学历；<br style="padding: 0px; margin: 0px;" />
+	1-2年以上平面设计相关工作经验；<br style="padding: 0px; margin: 0px;" />
+	较强的作品表现力，有较好的审美能力，构图与美术功底扎实，能独立完成个案；<br style="padding: 0px; margin: 0px;" />
+	完稿快，善于沟通，责任心强，能吃苦耐劳；<br style="padding: 0px; margin: 0px;" />
+	熟练掌握 Photoshop 、 Illustrator 、 CorelDarw 等设计制图软件，会3D操作者优先；<br style="padding: 0px; margin: 0px;" />
+	较好的审美能力和创新能力，对不同的行业设计的准确把握；<br style="padding: 0px; margin: 0px;" />
+	良好的书面及沟通表达能力，有责任心，善于沟通，有团队合作精神；<br style="padding: 0px; margin: 0px;" />
+	有丰富独立完成的成功个案者优先。</span><br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);"><span style="padding: 0px; margin: 0px; font-size: 14px;"><strong style="padding: 0px; margin: 0px;"><span style="padding: 0px; margin: 0px; font-size: 18px;">品牌设计师</span></strong></span></span></p>
+<hr style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma; line-height: 28px;" />
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">职位要求：<br style="padding: 0px; margin: 0px;" />
+	设计类专业专科以上学历；<br style="padding: 0px; margin: 0px;" />
+	1-2年以上专业设计、广告媒体类公司设计工作经验；<br style="padding: 0px; margin: 0px;" />
+	熟练操作Photoshop、CorelDraw、Illustrator等各类软件；<br style="padding: 0px; margin: 0px;" />
+	对品牌设计具有一定的理解，具有准确的视觉表达能力，掌握标志设计、VI基础及应用设计及VI手册制定的相关工作；<br style="padding: 0px; margin: 0px;" />
+	较好的审美能力和创新能力，对不同的行业设计的准确把握；<br style="padding: 0px; margin: 0px;" />
+	良好的书面及沟通表达能力，有责任心，善于沟通，有团队合作精神；<br style="padding: 0px; margin: 0px;" />
+	有丰富独立完成的成功个案者优先。</span><br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;"><strong style="padding: 0px; margin: 0px;"><font color="#ff0000" size="3" style="padding: 0px; margin: 0px;"><span style="padding: 0px; margin: 0px; font-size: 18px;">品牌空间设计师</span></font></strong></span></p>
+<hr style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma; line-height: 28px;" />
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">职位要求：<br style="padding: 0px; margin: 0px;" />
+	店面展示/ 店面设计<br style="padding: 0px; margin: 0px;" />
+	熟悉商业空间规划、卖场、专卖店、专柜设计工作，熟悉装潢、装修材料及结构制作工艺，具有独立思考和理解创意能力；<br style="padding: 0px; margin: 0px;" />
+	熟练操作3dmax、Autocad、Photoshop等制图软件；<br style="padding: 0px; margin: 0px;" />
+	能独立完成商业店铺的整体平面图、效果图、施工图；<br style="padding: 0px; margin: 0px;" />
+	有较强的沟通能力，独立工作能力强；<br style="padding: 0px; margin: 0px;" />
+	专业能力强，并有一定的施工现场管理能力；<br style="padding: 0px; margin: 0px;" />
+	熟悉行业店铺特点及设计流程、熟悉工程工艺及材料，关注时尚动向；<br style="padding: 0px; margin: 0px;" />
+	有SI全案设计经验者优先考虑；<br style="padding: 0px; margin: 0px;" />
+	支持兼职合作形式，支持创业合作形式。</span><br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px; font-size: 18px;"><span style="padding: 0px; margin: 0px; color: rgb(51, 51, 51);"><span style="padding: 0px; margin: 0px; font-family: arial, helvetica, sans-serif;"><strong style="padding: 0px; margin: 0px;"><span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">设计师助理</span></strong></span></span></span></p>
+<hr style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma; line-height: 28px;" />
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">职位要求：<br style="padding: 0px; margin: 0px;" />
+	设计相关专业毕业，熟练使用平面设计软件Photoshop 、 Illustrator 、 CorelDarw ；</span><br style="padding: 0px; margin: 0px;" />
+	应届设计专业毕业生优先考虑；<br style="padding: 0px; margin: 0px;" />
+	优异的设计创意，做事认真，能刻苦耐劳，虚心求学；<br style="padding: 0px; margin: 0px;" />
+	具有良好的3D效果制作能力与较强文案功底的设计人员，将优先考虑；<br style="padding: 0px; margin: 0px;" />
+	有团队精神，积极开朗，健康有活力<br style="padding: 0px; margin: 0px;" />
+	请认真阅读公司业务类型，无此工作兴趣者请不要投简历。<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px; font-size: 18px;"><span style="padding: 0px; margin: 0px; font-family: arial, helvetica, sans-serif;"><strong style="padding: 0px; margin: 0px;"><span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">实习设计师</span></strong></span></span></p>
+<hr style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma; line-height: 28px;" />
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	&nbsp;<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">职位要求：</span><br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">热爱设计，</span><span style="padding: 0px; margin: 0px;">能吃苦耐劳，谦虚求学，善于沟通；</span><br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">有独立的创意构思，能配合设计师以及团队完成设计项目；</span><br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">具有较强的团队精神和强烈的工作责任心、积极性和主动性；</span><br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">熟练掌握 Photoshop 、 Illustrator 、 CorelDarw 等设计基础软件；</span><br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	实习生可以跟设计师一起参与项目设计，可以得到设计师的指导，从实践案例中成长<br style="padding: 0px; margin: 0px;" />
+	<span style="padding: 0px; margin: 0px;">请认真阅读公司业务类型，无此工作兴趣者请不要投简历。</span></p>
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	<br style="padding: 0px; margin: 0px;" />
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	有意者，请把简历 (附带作品）发送到龍的邮箱:<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">dedecms@qq.com</span></p>
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	<span style="padding: 0px; margin: 0px; color: rgb(255, 0, 0);">对于每份提交过来的简历，我们都会认真细看，还会有专人跟你取得联系！</span><br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	T：0898-6688 9500<br style="padding: 0px; margin: 0px;" />
+	F：189 9988 3369（符生）</p>
+<p style="padding: 0px; margin: 0px; line-height: 24px; color: rgb(102, 102, 102); font-family: Verdana, Arial, Tahoma;">
+	QQ：192663254<br style="padding: 0px; margin: 0px;" />
+	QQ：18938169988<br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	E-MAIL：<a href="mailto:dragon-vi@qq.com" style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); text-decoration: none;">dedecms@qq.com</a><br style="padding: 0px; margin: 0px;" />
+	WEB&nbsp;&nbsp; ：<a href="http://www.dragon-vi.com/" style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); text-decoration: none;">www.dedecms.com</a><br style="padding: 0px; margin: 0px;" />
+	地址&nbsp; ：中国-广州南城艺展中心C-007</p>
+ </div>
+  </div>
+  <!-- /页面右边 --> 
+</div>
+<!-- //底部模板 -->
+
+
+<div class="w980 center clear clr mt3 footer_line">
+  <div class="fri_list clear clr">
+    <ul>
+      <li>友情链接:</li>
+      <li><a href='http://www.dedecms.com' target='_blank'>织梦CMS官方</a> </li><li><a href='http://docs.dedecms.com/' target='_blank'>DedeCMS维基手册</a> </li><li><a href='http://bbs.dedecms.com' target='_blank'>织梦技术论坛</a> </li>
+    </ul>
+  </div>
+</div>
+<div class="w980 center clear clr mt1">
+  <div class="copyright_l">&nbsp;&nbsp;Copyright &copy; 2002-2011 DEDECMS.COM 织梦科技 版权所有 <a href=http://www.dedecms.com target='_blank'>Power by DedeCms</a><br/>
+    地址：海南省海口市龙华区国贸玉沙路　电话：0898-89919095 传真：0898-27225688</div>
+  <div class="copyright_r"><a href="#" target="_blank">网站地图</a> <a href="#" target="_blank">TAG标签</a> <a href="#" class="rss" target="_blank">RSS订阅</a> 技术支持：织梦猫<br/>
+    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <span class="bds_more">分享到：</span> <a class="bds_qzone"></a> <a class="bds_tsina"></a> <a class="bds_tqq"></a> <a class="bds_renren"></a> <a class="shareCount"></a> </div>
+    <div style="width:0px; height:0px;overflow:hidden;"> <a href="http://sf999.nl" target="_blank">sf999</a></div>
+    <script type="text/javascript" id="bdshare_js" data="type=tools" ></script> 
+    <script type="text/javascript" id="bdshell_js"></script> 
+    <script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script> 
+    <!-- Baidu Button END --> 
+  </div>
+</div>
+<div class="clear clr mt3">
+  <div class="footer  w980 center">
+    <div class="foot_l">海口龙川文化传播机构</div>
+    <div class="foot_c"><img src="/templets/default/images/footer_logo.gif" /></div>
+    <div class="foot_r">YOUFANG<BR/>
+      CULTURAL COMMONICATIONS<BR/>
+      LIMITED</div>
+  </div>
+</div>
+<DIV id="STATICMENU" style="Z-INDEX: 989; right: 0px; VISIBILITY: visible; WIDTH: 110px; POSITION: absolute; TOP: 165px;">
+  <div style="height:130px;"><img src="/templets/default/images/top.jpg" border="0" usemap="#Map"></div>
+  <div style=" width:110px; background-color:#FFFFFF; text-align:center; padding:8px 0;">
+    <div style="margin:0 auto; width:90px;">
+      <dl>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:1900318882:41" alt="" width="74" height="22" border=0></A></dd>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:48109335:41" alt="" width="74" height="22" border=0></A></dd>
+      </dl>
+    </div>
+  </div>
+  <div style="background-color:#e50081; text-align:center;padding:5px;margin-top:1px;font-size:14px; line-height:20px;color:#FFFFFF">咨询热线<br/>
+    0898-89237995</div>
+  <SCRIPT language="javascript">
+var QuickScrollYLast=0;
+var STATICMENU=document.getElementById("STATICMENU")
+window.setInterval("LoadMenu()",1);
+function LoadMenu(){
+    var QuickScrollYDefault;
+    if(document.documentElement&&document.documentElement.scrollTop){
+        QuickScrollYDefault=document.documentElement.scrollTop;
+    }else if(document.body){
+        QuickScrollYDefault=document.body.scrollTop;
+    }else{
+    }
+    QuickPercent=.1*(QuickScrollYDefault-QuickScrollYLast);
+    if(QuickPercent>0){
+        QuickPercent=Math.ceil(QuickPercent);
+    }else{
+        QuickPercent=Math.floor(QuickPercent);
+    }
+    STATICMENU.style.top=parseInt(STATICMENU.style.top)+QuickPercent+"px";
+    QuickScrollYLast=QuickScrollYLast+QuickPercent;
+}
+
+function qq_close(){
+	STATICMENU.style.display='none';	
+}
+</SCRIPT> 
+</DIV>
+<map name="Map">
+  <area shape="rect" coords="94,4,108,18" href="javascript:qq_close();">
+</map>
+ 
+<!-- /footer -->
+</body>
+</html>

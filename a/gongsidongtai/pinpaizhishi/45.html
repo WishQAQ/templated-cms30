@@ -1,0 +1,524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>关于CIS、VI、MI、BI_大气品牌传播广告设计类企业公司织梦模板</title>
+<meta name="keywords" content="关于,CIS,、,很多,客户,咨询,龍大,品牌," />
+<meta name="description" content="很多客户咨询龍大品牌设计机构，其企业有VI设计的需求，但到底什么是VI设计？龍大了解到的客户其实大部分不理解VI的概念，甚至很多客户对VI一窍不通。 龍大品牌设计机构整理了关" />
+<link href="/templets/default/css/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="/include/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function CheckLogin(){
+	  var taget_obj = document.getElementById('_ajax_feedback');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("/member/ajax_feedback.php");
+	  DedeXHTTP = null;
+}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+-->
+</script>
+</head>
+<body class="articleview">
+<script type="text/javascript" src="/templets/default/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#focus").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#focus ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+	
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#focus").append(btn);
+	$("#focus .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#focus .btn span").css("opacity",0.4).mouseenter(function() {
+		index = $("#focus .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseenter");
+
+	//上一页、下一页按钮透明度处理
+	$("#focus .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},600);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},600);
+	});
+
+	//上一页按钮
+	$("#focus .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#focus .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#focus ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#focus").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#focus ul").stop(true,false).animate({"left":nowLeft},600); //通过animate()调整ul元素滚动到计算出的position
+		//$("#focus .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#focus .btn span").stop(true,false).animate({"opacity":"0.4"},600).eq(index).stop(true,false).animate({"opacity":"1"},600); //为当前的按钮切换到选中的效果
+	}
+});
+
+</script>
+
+<div class="w980 center clr">
+  <div class="header">
+    <div class="logo_l">
+      <div class="logo"><a href="/"><img src="/templets/default/images/logo.png" alt="大气品牌传播广告设计类企业公司织梦模板" style="margin-top:20px;"/></a></div>
+      <div class="logo_otherbt"> <a href="http://weibo.com/"><img src="/templets/default/images/logobt_01.gif" /></a> <a href="/a/zhaopingangwei/"><img src="/templets/default/images/logobt_02.gif" /></a> <a href="/a/gongsidongtai/"><img src="/templets/default/images/logobt_03.gif" /></a> </div>
+    </div>
+    <div class="logo_r">
+      <div class="top_tel"><img src="/templets/default/images/top_tel.gif" /></div>
+      <div class="menu_bg clr">
+        <div id="navMenu">
+          <ul>
+            <li><a href='/'>首 页</a></li>
+            
+            <li><a href='/a/gongsizuopin/'  rel='dropmenu7'>公司作品</a></li>
+            
+            <li><a href='/a/gongsifuwu/'  rel='dropmenu15'>公司服务</a></li>
+            <li class='hover'><a href='/a/gongsidongtai/'  rel='dropmenu21'>公司动态</a></li>
+            <li><a href='/a/zhaopingangwei/' >招聘岗位</a></li>
+            
+            <li><a href='/a/lianxiwomen/' >联系我们</a></li>
+            
+          </ul>
+        </div>
+        <script type='text/javascript' src='/templets/default/js/dropdown.js'></script> 
+        <ul id="dropmenu7" class="dropMenu">
+          
+          <li><a href="/a/gongsizuopin/pinpaishibieVI/">品牌识别VI</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaibiaozhi/">品牌标志</a></li>
+          
+          <li><a href="/a/gongsizuopin/chanpinbaozhuang/">产品包装</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaihuace/">品牌画册</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaiwangzhan/">品牌网站</a></li>
+          
+          <li><a href="/a/gongsizuopin/pinpaizhanlan/">品牌展览</a></li>
+          
+          <li><a href="/a/gongsizuopin/sheyingzuopin/">摄影作品</a></li>
+          
+        </ul><ul id="dropmenu15" class="dropMenu">
+          
+          <li><a href="/a/gongsifuwu/fuwulingyu/">服务领域</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuduixiang/">服务对象</a></li>
+          
+          <li><a href="/a/gongsifuwu/fuwuliucheng/">服务流程</a></li>
+          
+          <li><a href="/a/gongsifuwu/hezuofangshi/">合作方式</a></li>
+          
+        </ul><ul id="dropmenu21" class="dropMenu">
+          
+          <li><a href="/a/gongsidongtai/gongsixinwen/">公司新闻</a></li>
+          
+          <li><a href="/a/gongsidongtai/shejizhishi/">设计知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizhishi/">品牌知识</a></li>
+          
+          <li><a href="/a/gongsidongtai/pinpaizixun/">品牌资讯</a></li>
+          
+        </ul><ul id="dropmenu29" class="dropMenu">
+          
+        </ul><ul id="dropmenu27" class="dropMenu">
+          
+        </ul> 
+        <script type="text/javascript">cssdropdown.startchrome("navMenu")</script> 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w980 center clear clr">
+  <div class="i_banner">
+    <div class="wrapper">
+      <div id="focus">
+        <ul>
+          <li><img src='/uploads/allimg/150911/1-1509111221150-L.jpg' border='0' width='1000' height='341' alt='幻灯11'></li>
+<li><img src='/uploads/allimg/150911/1-1509111221040-L.jpg' border='0' width='1000' height='341' alt='幻灯10'></li>
+<li><img src='/uploads/allimg/150911/1-1509111220540-L.jpg' border='0' width='1000' height='341' alt='幻灯9'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103130-L.jpg' border='0' width='1000' height='341' alt='幻灯8'></li>
+<li><img src='/uploads/allimg/150731/1-150I11103050-L.jpg' border='0' width='1000' height='341' alt='幻灯7'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102550-L.jpg' border='0' width='1000' height='341' alt='幻灯6'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102470-L.jpg' border='0' width='1000' height='341' alt='幻灯5'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102350-L.jpg' border='0' width='1000' height='341' alt='幻灯4'></li>
+<li><img src='/uploads/150731/1-150I1110223318.jpg' border='0' width='1000' height='341' alt='幻灯3'></li>
+<li><img src='/uploads/allimg/150731/1-150I11102050-L.jpg' border='0' width='1000' height='341' alt='幻灯2'></li>
+
+        </ul>
+      </div>
+    </div>
+    <!-- wrapper end --> 
+  </div>
+</div>
+ 
+<!-- /header -->
+<div class="w980 center clear clr mt1"> <div id="left_diy" class="mt1">
+  <div class="left_top">公司动态</div>
+  <div class="left_menu">
+    <ul>
+      
+      <li><a href='/a/gongsidongtai/gongsixinwen/'>+ 公司新闻</a></li>
+      
+      <li><a href='/a/gongsidongtai/shejizhishi/'>+ 设计知识</a></li>
+      <li><a href='/a/gongsidongtai/pinpaizhishi/' class='thisclass2'>+ 品牌知识</a></li>
+      <li><a href='/a/gongsidongtai/pinpaizixun/'>+ 品牌资讯</a></li>
+      
+    </ul>
+  </div>
+</div>
+ 
+  
+  <!-- /页面右边 -->
+  <div id="right_diy">
+    <div class="right_nav">您当前的位置:<a href='http://localhost/'>主页</a> > <a href='/a/gongsidongtai/'>公司动态</a> > <a href='/a/gongsidongtai/pinpaizhishi/'>品牌知识</a> > </div>
+    <div class="right_body clear clr">
+      <div class="viewbox">
+        <div class="title">
+          <h2>关于CIS、VI、MI、BI</h2>
+        </div>
+        <!-- /title -->
+        <div class="info"> <small>发布于:</small>2015-07-31<small>来源:</small>未知 <small>作者:</small>admin<small>点击:</small> 
+          <script src="/plus/count.php?view=yes&aid=45&mid=1" type='text/javascript' language="javascript"></script> 
+          次</div>
+        <!-- /info -->
+        <div class="content"> <div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	<img alt="" src="/uploads/allimg/150731/1-150I1120106229.jpg" style="padding: 0px; margin: 0px; border: none; width: 680px; height: 453px;" /><br style="padding: 0px; margin: 0px;" />
+	<br style="padding: 0px; margin: 0px;" />
+	很多客户咨询龍大品牌设计机构，其企业有VI设计的需求，但到底什么是VI设计？龍大了解到的客户其实大部分不理解VI的概念，甚至很多客户对VI一窍不通。</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	龍大品牌设计机构整理了关于品牌设计、VI设计相关资料，帮助客户理解VI设计的概念。</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	什么是VI？要搞清楚这个问题，必须先明白什么是CIS!那么什么是CIS呢？</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	什么是CIS ？&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	CIS是Corporate Identity System的缩写，意思是企业形象识别系统。60年代，美国人首先提出了企业的CI设计这一概念。据说是美国IBM公司是这方面开先河者。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	CIS的主要含义是：将企业文化与经营理念，统一设计，利用整体表达体系（尤其是视觉表达系统），传达给企业内部与公众，使其对企业产生一致的认同感，以形成良好的企业印象，最终促进企业产品和服务的销售。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	CIS的意义&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	对内，企业可通过CI设计对其办公系统、生产系统、管理系统以及营销、包装、广告等宣传形象形成规范设计和统一管理，由此调动企业每个职员的积极性和归属感、认同感，使各职能部门能各行其职、有效合作。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	对外，通过一体化的符号形式来形成企业的独特形象，便于公众辨别、认同企业形象，促进企业产品或服务的推广。</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	CIS的具体组成部分</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	日本著名CI专家山田英理认为CI包含下面两个方面的概念：&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	第一、CI是一种被明确地认知企业理念与企业文化的活动；&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	第二、CI是以标志和标准字作为沟通企业理念与企业文化的工具。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	换而言之，CI系统是由MI（理念识别Mind Identity）、BI（行为识别Behavior Identity）、VI（视觉识别Visual Identity）三方面组成。在CIS的三大构成中，其核心是MI，它是整个CIS的最高决策层，给整个系统奠定了理论基础和行为准则，并通过BI与VI表达出来。所有的行为活动与视觉设计都是围绕着MI这个中心展开的，成功的BI与VI就是将企业的独特精神准确表达出来。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	MI：理念识别&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	企业理念，对内影响企业的决策、活动、制度、管理等等，对外影响企业的公众形象、广告宣传等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	所谓MI，是指确立企业自己的经营理念，企业对目前和将来一定时期的经营目标、经营思想、经营方式和营销状态进行总体规划和界定。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	MI的主要内容包括&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	企业精神，企业价值观，企业文化，企业信条，经营理念，经营方针，市场定位，产业构成，组织体制，管理原则，社会责任和发展规划等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	BI：行为识别&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	置于中间层位的BI则直接反映企业理念的个性和特殊性，是企业实践经营理念与创造企业文化的准则，对企业运作方式所作的统一规划而形成的动态识别系统。包括对内的组织管理和教育，对外的公共关系、促销活动、资助社会性的文化活动等。通过一系列的实践活动将企业理念的精神实质推展到企业内部的每一个角落，汇集起员工的巨大精神力量。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	BI包括以下内容&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	对内：组织制度，管理规范，行为规范，干部教育，职工教育，工作环境，生产设备，福利制度等等；&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	对外：市场调查，公共关系，营销活动，流通对策，产品研发，公益性、文化性活动等等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	VI：视觉识别&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	VI：以标志、标准字、标准色为核心展开的完整的、系统的视觉表达体系。将上述的企业理念、企业文化、服务内容、企业规范等抽象概念转换为具体符号，塑造出独特的企业形象。在CI设计中，视觉识别设计最具传播力和感染力，最容易被公众接受，具有重要意义。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	VI系统：&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	A.基本要素系统：如企业名称、企业标志、企业造型、标准字、标准色、象征图案、宣传口号等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	B.应用系统：产品造型、办公用品、企业环境、交通工具、服装服饰、广告媒体、招牌、包装系统、 公务礼品、陈列展示以及印刷出版物等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	一套VI设计的主要内容：&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	I．基本要素系统&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	A.标志&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	B.标准字&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	C.标准色&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	D.标志和标准字的组合.&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	II．应用系统&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	A.办公用品：信封、信纸、便笺、名片、徽章、工作证、请柬、文件夹、介绍信、帐票、备忘录、资料袋、公文表格等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	B.企业外部建筑环境：建筑造型、公司旗帜、企业门面、企业招牌、公共标识牌、路标指示牌、广告塔、霓虹灯广告、庭院美化等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	C.企业内部建筑环境：企业内部各部门标识牌、常用标识牌、楼层标识牌、企业形象牌、旗帜、广告牌、POP广告、货架标牌等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	D.交通工具：轿车、面包车、大巴士、货车、工具车、油罐车、轮船、飞机等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	E.服装服饰：经理制服、管理人员制服、员工制服、礼仪制服、文化衫、领带、工作帽、钮扣、肩章、胸卡等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	F.广告媒体：电视广告、杂志广告、报纸广告、网络广告、路牌广告、招贴广告等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	G.产品包装：纸盒包装、纸袋包装、木箱包装、玻璃容器包装、塑料袋包装、金属包装、陶瓷包装、包装纸。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	H.公务礼品：T恤衫、领带、领带夹、打火机、钥匙牌、雨伞、纪念章、礼品袋等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	I.陈列展示：橱窗展示、展览展示、货架商品展示、陈列商品展示等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	J.印刷品：企业简介、商品说明书、产品简介、年历等。&nbsp;</div>
+<div style="padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: Verdana, Arial, Tahoma; font-size: 14px; line-height: 25px;">
+	完整的VI设计的项目有多达300多项，项目的质量要求和数量要求都会影响项目的费用，龍大品牌设计机构建议企业可以根据自己的预算以及需求进行项目选择， 也可以咨询龍大品牌设计机构为企业量身定做设定VI设计的项目！</div>
+
+           </div>
+        <!-- /content -->
+        <div class="dede_pages">
+          <ul class="pagelist">
+            
+          </ul>
+        </div>
+        <!-- /pages -->
+        <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+        <div class="handle">
+          <div class="context">
+            <ul>
+              <li>上一篇：没有了 </li>
+              <li>下一篇：<a href='/a/gongsidongtai/pinpaizhishi/46.html'>东莞企业品牌建设现状及发展对策</a> </li>
+            </ul>
+          </div>
+          <!-- /context --> 
+        </div>
+        <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+        <div class="ar_likeart"> <span>[相关文章]</span>
+          <ul>
+            <li>> <a title="东莞新锐的品牌策划设计机构 " href="/a/gongsidongtai/pinpaizhishi/52.html">东莞新锐的品牌策划设计机构</a></li>
+<li>> <a title="在设计应用中什么颜色最高档 " href="/a/gongsidongtai/pinpaizhishi/51.html">在设计应用中什么颜色最高档</a></li>
+<li>> <a title="浅谈标志在VI设计中的重要性 " href="/a/gongsidongtai/pinpaizhishi/50.html">浅谈标志在VI设计中的重要性</a></li>
+<li>> <a title="2012年设计行业最流行的颜色 " href="/a/gongsidongtai/pinpaizhishi/49.html">2012年设计行业最流行的颜色</a></li>
+<li>> <a title="得品牌者得市场（龍的品牌设 " href="/a/gongsidongtai/pinpaizhishi/48.html">得品牌者得市场（龍的品牌设</a></li>
+<li>> <a title="企业如何选择VI设计公司 " href="/a/gongsidongtai/pinpaizhishi/47.html">企业如何选择VI设计公司</a></li>
+<li>> <a title="东莞企业品牌建设现状及发展 " href="/a/gongsidongtai/pinpaizhishi/46.html">东莞企业品牌建设现状及发展</a></li>
+<li>> <a title="关于CIS、VI、MI、BI " href="/a/gongsidongtai/pinpaizhishi/45.html">关于CIS、VI、MI、BI</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /页面右边 --> 
+</div>
+<!-- //底部模板 -->
+
+
+<div class="w980 center clear clr mt3 footer_line">
+  <div class="fri_list clear clr">
+    <ul>
+      <li>友情链接:</li>
+      <li><a href='http://www.dedecms.com' target='_blank'>织梦CMS官方</a> </li><li><a href='http://docs.dedecms.com/' target='_blank'>DedeCMS维基手册</a> </li><li><a href='http://bbs.dedecms.com' target='_blank'>织梦技术论坛</a> </li>
+    </ul>
+  </div>
+</div>
+<div class="w980 center clear clr mt1">
+  <div class="copyright_l">&nbsp;&nbsp;Copyright &copy; 2002-2011 DEDECMS.COM 织梦科技 版权所有 <a href=http://www.dedecms.com target='_blank'>Power by DedeCms</a><br/>
+    地址：海南省海口市龙华区国贸玉沙路　电话：0898-89919095 传真：0898-27225688</div>
+  <div class="copyright_r"><a href="#" target="_blank">网站地图</a> <a href="#" target="_blank">TAG标签</a> <a href="#" class="rss" target="_blank">RSS订阅</a> 技术支持：织梦猫<br/>
+    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <span class="bds_more">分享到：</span> <a class="bds_qzone"></a> <a class="bds_tsina"></a> <a class="bds_tqq"></a> <a class="bds_renren"></a> <a class="shareCount"></a> </div>
+    <div style="width:0px; height:0px;overflow:hidden;"> <a href="http://sf999.nl" target="_blank">sf999</a></div>
+    <script type="text/javascript" id="bdshare_js" data="type=tools" ></script> 
+    <script type="text/javascript" id="bdshell_js"></script> 
+    <script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script> 
+    <!-- Baidu Button END --> 
+  </div>
+</div>
+<div class="clear clr mt3">
+  <div class="footer  w980 center">
+    <div class="foot_l">海口龙川文化传播机构</div>
+    <div class="foot_c"><img src="/templets/default/images/footer_logo.gif" /></div>
+    <div class="foot_r">YOUFANG<BR/>
+      CULTURAL COMMONICATIONS<BR/>
+      LIMITED</div>
+  </div>
+</div>
+<DIV id="STATICMENU" style="Z-INDEX: 989; right: 0px; VISIBILITY: visible; WIDTH: 110px; POSITION: absolute; TOP: 165px;">
+  <div style="height:130px;"><img src="/templets/default/images/top.jpg" border="0" usemap="#Map"></div>
+  <div style=" width:110px; background-color:#FFFFFF; text-align:center; padding:8px 0;">
+    <div style="margin:0 auto; width:90px;">
+      <dl>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:1900318882:41" alt="" width="74" height="22" border=0></A></dd>
+        <dd class="qq_body"><A title="在线客服" href="tencent://message/?uin=329435596&Site=在线咨询&Menu=yes"><IMG src="http://wpa.qq.com/pa?p=1:48109335:41" alt="" width="74" height="22" border=0></A></dd>
+      </dl>
+    </div>
+  </div>
+  <div style="background-color:#e50081; text-align:center;padding:5px;margin-top:1px;font-size:14px; line-height:20px;color:#FFFFFF">咨询热线<br/>
+    0898-89237995</div>
+  <SCRIPT language="javascript">
+var QuickScrollYLast=0;
+var STATICMENU=document.getElementById("STATICMENU")
+window.setInterval("LoadMenu()",1);
+function LoadMenu(){
+    var QuickScrollYDefault;
+    if(document.documentElement&&document.documentElement.scrollTop){
+        QuickScrollYDefault=document.documentElement.scrollTop;
+    }else if(document.body){
+        QuickScrollYDefault=document.body.scrollTop;
+    }else{
+    }
+    QuickPercent=.1*(QuickScrollYDefault-QuickScrollYLast);
+    if(QuickPercent>0){
+        QuickPercent=Math.ceil(QuickPercent);
+    }else{
+        QuickPercent=Math.floor(QuickPercent);
+    }
+    STATICMENU.style.top=parseInt(STATICMENU.style.top)+QuickPercent+"px";
+    QuickScrollYLast=QuickScrollYLast+QuickPercent;
+}
+
+function qq_close(){
+	STATICMENU.style.display='none';	
+}
+</SCRIPT> 
+</DIV>
+<map name="Map">
+  <area shape="rect" coords="94,4,108,18" href="javascript:qq_close();">
+</map>
+ 
+<!-- /footer -->
+</body>
+</html>

@@ -1,0 +1,52 @@
+<div id="left_diy" class="mt1">
+  <div class="left_top">{dede:field name='typeid' function="GetTopTypename(@me)/}</div>
+  <div class="left_menu">
+    <ul>
+      {dede:channel  type='son' currentstyle="
+      <li><a href='~typelink~' class='thisclass2'>+ ~typename~</a></li>
+      "}
+      <li><a href='[field:typeurl/]'>+ [field:typename/]</a></li>
+      {/dede:channel}
+    </ul>
+  </div>
+  <div class="clear clr mt1">
+    <form action="/plus/diy.php" enctype="multipart/form-data" method="post">
+      <input type="hidden" name="action" value="post" />
+      <input type="hidden" name="diyid" value="1" />
+      <input type="hidden" name="do" value="2" />
+      <table style="width:97%;" cellpadding="0" cellspacing="1">
+        <tr>
+          <td align="left" valign="middle">您的称呼：</td>
+        </tr>
+        <tr>
+          <td height="30"><input type='text' name='name' id='name' style='width:98%'  class='intxt' value='' /></td>
+        </tr>
+        <tr>
+          <td align="left" valign="middle">联系电话：</td>
+        </tr>
+        <tr>
+          <td height="30"><input type='text' name='tel' id='tel' style='width:98%'  class='intxt' value='' /></td>
+        </tr>
+        <tr>
+          <td align="left" valign="middle">E-Mail：</td>
+        </tr>
+        <tr>
+          <td height="30"><input type='text' name='email' id='email' style='width:98%'  class='intxt' value='' /></td>
+        </tr>
+        <tr>
+          <td height="30" align="left" valign="middle">内容：</td>
+        </tr>
+        <tr>
+          <td height="180"><textarea name='content' id='content' style='width:98%;height:180px'></textarea></td>
+        </tr>
+        <input type="hidden" name="dede_fields" value="name,text;tel,text;content,text;email,text" />
+        <input type="hidden" name="dede_fieldshash" value="261e72691d8077b59be1a4c11b1c1921" />
+      </table>
+      <div align='center' style='height:30px;padding-top:10px;'>
+        <input type="submit" name="submit" value="提 交" class='coolbg' />
+        &nbsp;
+        <input type="reset" name="reset" value="重 置" class='coolbg' />
+      </div>
+    </form>
+  </div>
+</div>
